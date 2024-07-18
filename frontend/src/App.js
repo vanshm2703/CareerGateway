@@ -5,7 +5,7 @@ import Home from './components/Home';
 import Roles from './components/Roles';
 import Jobseeker from './components/jobseeker-dashboard';
 import Profile from './components/Profiles';
-
+import Employer from './components/employer-dashboard';
 import Navbar from './components/NavbarTab';
 
 function App() {
@@ -22,6 +22,7 @@ function App() {
             <Route path="/roles" element={<Roles />} />
             <Route path="/jobseeker-dashboard" element={<Jobseeker />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/employer-dashboard" element={<Employer />} />
           </Routes>
           <Footer />
         </div>
