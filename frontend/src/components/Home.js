@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./NavbarTab";
+
 import "./backgroundwebsite.jpg";
 
 const Home = () => {
@@ -17,7 +17,7 @@ const Home = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <Navbar />
+   
       <div className="bg-none">
         <div className="container mx-auto px-4 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
