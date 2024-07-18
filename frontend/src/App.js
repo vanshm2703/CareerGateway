@@ -1,27 +1,21 @@
 import React from 'react';
-import Header from './components/Header';
-import JobSearchBar from './components/JobSearchBar';
-import PopularVacancies from './components/PopularVacancies';
-import HowItWorks from './components/HowItWorks';
-import Categories from './components/Categories';
-import FeaturedJobs from './components/FeaturedJobs';
-import TopCompanies from './components/TopCompanies';
-import Testimonials from './components/Testimonials';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
+import Home from './components/Home';
+import Roles from './components/Roles';
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <JobSearchBar />
-      <PopularVacancies />
-      <HowItWorks />
-      <Categories />
-      <FeaturedJobs />
-      <TopCompanies />
-      <Testimonials />
-      <Footer />
-    </div>
+      <Router>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/roles" element={<Roles />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
+  
   );
 }
 
