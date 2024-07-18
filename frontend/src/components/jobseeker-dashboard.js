@@ -29,7 +29,7 @@ const JobListing = () => {
           </div>
           <nav className="flex flex-grow justify-center space-x-4"> {/* Updated class */}
             <Link to="/" className="text-gray-700">Home</Link>
-            <Link to="/roles" className="text-gray-700">Change Role</Link>
+         
             <Link to="/job-alerts" className="text-gray-700">Job Alerts</Link>
             <Link to="/profile" className="text-gray-700">Profile</Link>
           </nav>

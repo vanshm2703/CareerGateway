@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Employer = () => {
   const [isOpen, setIsOpen] = useState(false); // State to manage form visibility
@@ -38,7 +39,26 @@ const Employer = () => {
   };
 
   return (
+    <div>
+    <header className="bg-white shadow py-4">
+        <div className="container mx-auto flex justify-between items-center">
+          <div className="flex items-center space-x-4">
+            {/* Optional elements can be added here */}
+          </div>
+          <nav className="flex flex-grow justify-center space-x-4"> {/* Updated class */}
+            <Link to="/" className="text-gray-700">Home</Link>
+         
+            <Link to="/job-alerts" className="text-gray-700">Notifications</Link>
+            
+          </nav>
+          <div className="flex items-center space-x-4">
+            {/* Optional elements can be added here */}
+          </div>
+        </div>
+      </header>
+      
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
+         
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6">Employers Gateway</h2>
         <button
@@ -125,6 +145,7 @@ const Employer = () => {
           </form>
         )}
       </div>
+    </div>
     </div>
   );
 };
