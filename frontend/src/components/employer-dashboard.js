@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const Employer = () => {
-  const [isOpen, setIsOpen] = useState(false); // State to manage form visibility
+  const [activeSection, setActiveSection] = useState('postJob');
+  const [animation, setAnimation] = useState('');
+
   const [jobTitle, setJobTitle] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [location, setLocation] = useState('');
@@ -11,141 +14,281 @@ const Employer = () => {
   const [salary, setSalary] = useState('');
   const [requiredSkills, setRequiredSkills] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle job posting submission logic here, e.g., send data to server
-    console.log({
-      jobTitle,
-      companyName,
-      location,
-      jobDescription,
-      experience,
-      salary,
-      requiredSkills,
-    });
-    // You can implement logic to send this data to your backend for job posting
-    // Reset form fields after submission if needed
-    setJobTitle('');
-    setCompanyName('');
-    setLocation('');
-    setJobDescription('');
-    setExperience('');
-    setSalary('');
-    setRequiredSkills('');
+    try {
+      // Replace 'API_ENDPOINT' with your backend URL
+      const response = await axios.post('API_ENDPOINT/jobs', {
+        jobTitle,
+        companyName,
+        location,
+        jobDescription,
+        experience,
+        salary,
+        requiredSkills,
+      });
+      console.log(response.data);
+      // Reset form fields after successful submission
+      setJobTitle('');
+      setCompanyName('');
+      setLocation('');
+      setJobDescription('');
+      setExperience('');
+      setSalary('');
+      setRequiredSkills('');
+    } catch (error) {
+      console.error('Error posting job:', error);
+    }
   };
 
-  const toggleForm = () => {
-    setIsOpen(!isOpen); // Toggle form visibility
+  const handleSectionChange = (section) => {
+    setAnimation('slide-out');
+    setTimeout(() => {
+      setActiveSection(section);
+      setAnimation('slide-in');
+    }, 500); // Match this duration with the slide-out animation duration
+  };
+
+  const renderSection = () => {
+    switch (activeSection) {
+      case 'postJob':
+        return (
+          <div className={`section-content ${animation}`}>
+            <h2 className="text-2xl font-bold mb-6 px-4">Post a Job</h2>
+            <form onSubmit={handleSubmit} className="space-y-4 transition-opacity duration-500 px-4">
+              <div className="mb-4">
+                <label className="block text-gray-200">Job Title</label>
+                <input
+                  type="text"
+                  value={jobTitle}
+                  onChange={(e) => setJobTitle(e.target.value)}
+                  className="border rounded px-4 py-2 w-full bg-gray-700 text-white"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-200">Company Name</label>
+                <input
+                  type="text"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  className="border rounded px-4 py-2 w-full bg-gray-700 text-white"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-200">Location</label>
+                <input
+                  type="text"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  className="border rounded px-4 py-2 w-full bg-gray-700 text-white"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-200">Job Description</label>
+                <textarea
+                  value={jobDescription}
+                  onChange={(e) => setJobDescription(e.target.value)}
+                  className="border rounded px-4 py-2 w-full bg-gray-700 text-white"
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-200">Experience Required</label>
+                <input
+                  type="text"
+                  value={experience}
+                  onChange={(e) => setExperience(e.target.value)}
+                  className="border rounded px-4 py-2 w-full bg-gray-700 text-white"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-200">Salary</label>
+                <input
+                  type="text"
+                  value={salary}
+                  onChange={(e) => setSalary(e.target.value)}
+                  className="border rounded px-4 py-2 w-full bg-gray-700 text-white"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-200">Required Skills</label>
+                <textarea
+                  value={requiredSkills}
+                  onChange={(e) => setRequiredSkills(e.target.value)}
+                  className="border rounded px-4 py-2 w-full bg-gray-700 text-white"
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded transition-transform transform hover:scale-105">
+                Post Job
+              </button>
+            </form>
+          </div>
+        );
+      case 'manageJobs':
+        return (
+          <div className={`section-content ${animation}`}>
+            <h2 className="text-2xl font-bold mb-6 px-4">Manage Jobs</h2>
+            {/* Fetch and display job listings from backend */}
+            {/* Implement job management functionalities */}
+          </div>
+        );
+      case 'applicants':
+        return (
+          <div className={`section-content ${animation}`}>
+            <h2 className="text-2xl font-bold mb-6 px-4">Applicants</h2>
+            {/* Fetch and display applicants from backend */}
+            {/* Implement applicant management functionalities */}
+          </div>
+        );
+      case 'analytics':
+        return (
+          <div className={`section-content ${animation}`}>
+            <h2 className="text-2xl font-bold mb-6 px-4">Analytics</h2>
+            {/* Fetch and display analytics data from backend */}
+            {/* Implement analytics functionalities */}
+          </div>
+        );
+      case 'settings':
+        return (
+          <div className={`section-content ${animation}`}>
+            <h2 className="text-2xl font-bold mb-6 px-4">Settings</h2>
+            {/* Implement settings functionalities */}
+          </div>
+        );
+      default:
+        return null;
+    }
   };
 
   return (
-    <div>
-    <header className="bg-white shadow py-4">
+    <div className="h-screen overflow-hidden bg-gray-900 text-gray-100">
+      <header className="bg-gray-900 shadow py-4">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            {/* Optional elements can be added here */}
+            <Link to="/" className="text-gray-100 text-lg font-semibold">Employer Dashboard</Link>
           </div>
-          <nav className="flex flex-grow justify-center space-x-4"> {/* Updated class */}
-            <Link to="/" className="text-gray-700">Home</Link>
-         
-            <Link to="/job-alerts" className="text-gray-700">Notifications</Link>
-            
+          <nav className="flex flex-grow justify-center space-x-4">
+           
+            <Link to="/job-alerts" className="text-gray-100">Notifications</Link>
           </nav>
-          <div className="flex items-center space-x-4">
-            {/* Optional elements can be added here */}
-          </div>
+        
         </div>
       </header>
-      
-    <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-         
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6">Employers Gateway</h2>
-        <button
-          onClick={toggleForm}
-          className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
-        >
-          {isOpen ? 'Hide Form' : 'Post a Job'}
-        </button>
-        {isOpen && (
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label className="block text-gray-700">Job Title</label>
-              <input
-                type="text"
-                value={jobTitle}
-                onChange={(e) => setJobTitle(e.target.value)}
-                className="border rounded px-4 py-2 w-full"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Company Name</label>
-              <input
-                type="text"
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-                className="border rounded px-4 py-2 w-full"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Location</label>
-              <input
-                type="text"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                className="border rounded px-4 py-2 w-full"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Job Description</label>
-              <textarea
-                value={jobDescription}
-                onChange={(e) => setJobDescription(e.target.value)}
-                className="border rounded px-4 py-2 w-full"
-                rows="4"
-                required
-              ></textarea>
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Experience Required</label>
-              <input
-                type="text"
-                value={experience}
-                onChange={(e) => setExperience(e.target.value)}
-                className="border rounded px-4 py-2 w-full"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Salary</label>
-              <input
-                type="text"
-                value={salary}
-                onChange={(e) => setSalary(e.target.value)}
-                className="border rounded px-4 py-2 w-full"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Required Skills</label>
-              <textarea
-                value={requiredSkills}
-                onChange={(e) => setRequiredSkills(e.target.value)}
-                className="border rounded px-4 py-2 w-full"
-                rows="4"
-                required
-              ></textarea>
-            </div>
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-              Post Job
-            </button>
-          </form>
-        )}
+
+      <div className="flex min-h-screen">
+        <aside className="bg-gray-800 text-gray-100 shadow-lg p-4 w-52 flex-shrink-0">
+          <h2 className="text-xl font-bold mb-4">Navigation</h2>
+          <nav>
+            <ul className="space-y-4">
+              <li>
+                <button
+                  onClick={() => handleSectionChange('postJob')}
+                  className={`w-full px-4 py-2 text-center text-white rounded transition-all duration-300 ${
+                    activeSection === 'postJob' ? 'bg-blue-600' : 'bg-transparent hover:bg-blue-400'
+                  }`}
+                >
+                  Post a Job
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => handleSectionChange('manageJobs')}
+                  className={`w-full px-4 py-2 text-center text-white rounded transition-all duration-300 ${
+                    activeSection === 'manageJobs' ? 'bg-blue-600' : 'bg-transparent hover:bg-blue-400'
+                  }`}
+                >
+                  Manage Jobs
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => handleSectionChange('applicants')}
+                  className={`w-full px-4 py-2 text-center text-white rounded transition-all duration-300 ${
+                    activeSection === 'applicants' ? 'bg-blue-600' : 'bg-transparent hover:bg-blue-400'
+                  }`}
+                >
+                  Applicants
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => handleSectionChange('analytics')}
+                  className={`w-full px-4 py-2 text-center text-white rounded transition-all duration-300 ${
+                    activeSection === 'analytics' ? 'bg-blue-600' : 'bg-transparent hover:bg-blue-400'
+                  }`}
+                >
+                  Analytics
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => handleSectionChange('settings')}
+                  className={`w-full px-4 py-2 text-center text-white rounded transition-all duration-300 ${
+                    activeSection === 'settings' ? 'bg-blue-600' : 'bg-transparent hover:bg-blue-400'
+                  }`}
+                >
+                  Settings
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+
+        <main className="relative flex-grow bg-gray-900 overflow-hidden">
+          <div className="absolute inset-0 p-4">
+            {renderSection()}
+          </div>
+        </main>
       </div>
-    </div>
+
+      <style jsx>{`
+        @keyframes slideIn {
+          0% {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          100% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+
+        @keyframes slideOut {
+          0% {
+            transform: translateX(0);
+            opacity: 1;
+          }
+          100% {
+            transform: translateX(-100%);
+            opacity: 0;
+          }
+        }
+
+        .slide-in {
+          animation: slideIn 0.5s forwards;
+        }
+
+        .slide-out {
+          animation: slideOut 0.5s forwards;
+        }
+
+        .section-content {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          overflow-y: auto;
+        }
+      `}</style>
     </div>
   );
 };

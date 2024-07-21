@@ -1,11 +1,9 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-
 import "./backgroundwebsite.jpg";
-
 const Home = () => {
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated,user } = useAuth0();
   const navigate = useNavigate();
 
   return (
@@ -17,7 +15,7 @@ const Home = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-   
+      
       <div className="bg-none">
         <div className="container mx-auto px-4 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -51,6 +49,14 @@ const Home = () => {
                   Login
                 </button>
               )}
+              { isAuthenticated && (
+                  <div>
+                    <img src={user.picture} alt={user.name} />
+                    <h2> Welcome! {user.name}</h2>
+                    <p>{user.email}</p>
+                  </div>
+                )};
+              
             </div>
             <div className="hidden md:block">
             </div>
@@ -108,6 +114,7 @@ const Home = () => {
         </div>
       </div>
     </div>
+   
   );
 };
 

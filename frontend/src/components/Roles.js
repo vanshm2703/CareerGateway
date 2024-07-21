@@ -10,13 +10,14 @@ const Roles = () => {
       className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center"
       style={{
         backgroundImage: `url(${require("./backgroundwebsite.jpg")})`,
+        
       }}
     >
       <h1 className="text-4xl sm:text-5xl font-bold text-white mb-8 text-center transition transform hover:scale-105 duration-300">
         Choose Your Gateway
       </h1>
       <div className="bg-white bg-opacity-75 p-6 rounded-lg shadow-lg mb-8 w-11/12 md:w-3/4 lg:w-2/3 xl:w-1/2 animate-fade-in flex flex-row space-x-4 justify-center">
-        <div className="relative group cursor-pointer overflow-hidden duration-500 w-64 h-80 bg-zinc-800 text-gray-50 p-5 flex flex-col justify-evenly">
+        <div className=" relative group cursor-pointer overflow-hidden duration-500 w-64 h-80 bg-zinc-800 text-gray-50 p-5 flex flex-col justify-evenly">
           <div className="" onClick={() => navigate("/employer-dashboard")}>
             <div
               className="group-hover:scale-110 w-full h-60 bg-blue-400 duration-500"
