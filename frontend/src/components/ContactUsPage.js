@@ -138,7 +138,7 @@ const ContactUsPage = () => {
           <h2 className="text-4xl font-bold mb-6 animate-text">
             Facing an issue? Feel free to contact us
           </h2>
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             <h3 className="text-lg font-semibold">Contact Information</h3>
             <p className="mt-2">Address: Your Company Address</p>
             <p>Email: contact@yourcompany.com</p>
@@ -244,7 +244,7 @@ const ContactUsPage = () => {
             #ff0000,
             #00ff00
           );
-          background-size: 400% 400%;
+          background-size: 500% 500%;
           animation: gradientAnimation 3s ease infinite;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;

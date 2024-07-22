@@ -2,6 +2,8 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import "./backgroundwebsite.jpg";
+import { Flex } from '@radix-ui/themes';
+
 const Home = () => {
   const { loginWithRedirect, logout, isAuthenticated,user } = useAuth0();
   const navigate = useNavigate();
@@ -27,7 +29,7 @@ const Home = () => {
                 Your dream job is just a click away.
               </p>
               {isAuthenticated ? (
-                <div>
+                <div >
                   <button
                     onClick={() => logout({ returnTo: window.location.origin })}
                     className="text-black bg-white hover:bg-gray-200 px-4 py-2 rounded-md transition duration-300 ease"
@@ -50,12 +52,12 @@ const Home = () => {
                 </button>
               )}
               { isAuthenticated && (
-                  <div>
+                  <Flex className="justify-center mt-8 text-white items-center">
                     <img src={user.picture} alt={user.name} />
                     <h2> Welcome! {user.name}</h2>
                     <p>{user.email}</p>
-                  </div>
-                )};
+                  </Flex>
+                )}
               
             </div>
             <div className="hidden md:block">
