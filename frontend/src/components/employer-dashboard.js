@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import api from "../services/api";
+
 
 const Employer = () => {
   const [activeSection, setActiveSection] = useState('postJob');
@@ -13,12 +15,14 @@ const Employer = () => {
   const [experience, setExperience] = useState('');
   const [salary, setSalary] = useState('');
   const [requiredSkills, setRequiredSkills] = useState('');
+  const [numberOfOpenings, setNumberOfOpenings] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+       const token = localStorage.getItem('authToken');
       // Replace 'API_ENDPOINT' with your backend URL
-      const response = await axios.post('API_ENDPOINT/jobs', {
+      const response = await api.post('https://cc4c0690-d7b5-4b84-981a-468c45c5b449-00-pwlz3kc5shs6.sisko.replit.dev:5000/api/jobs', {
         jobTitle,
         companyName,
         location,
@@ -26,6 +30,11 @@ const Employer = () => {
         experience,
         salary,
         requiredSkills,
+        numberOfOpenings,
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       console.log(response.data);
       // Reset form fields after successful submission
@@ -36,6 +45,7 @@ const Employer = () => {
       setExperience('');
       setSalary('');
       setRequiredSkills('');
+      setNumberOfOpenings('');
     } catch (error) {
       console.error('Error posting job:', error);
     }
@@ -55,7 +65,7 @@ const Employer = () => {
         return (
           <div className={`section-content ${animation}`}>
             <h2 className="text-2xl font-bold mb-6 px-4">Post a Job</h2>
-            <form onSubmit={handleSubmit} className="space-y-4 transition-opacity duration-500 px-4">
+            <form onSubmit={handleSubmit} className="space-y-4 transition-opacity duration-500 px-4 max-w-lg mx-auto bg-gray-800 p-6 pb-16 rounded-lg">
               <div className="mb-4">
                 <label className="block text-gray-200">Job Title</label>
                 <input
@@ -126,6 +136,16 @@ const Employer = () => {
                   required
                 ></textarea>
               </div>
+              <div className="mb-4">
+                <label className="block text-gray-200">Number of Openings</label>
+                <input
+                  type="number"
+                  value={numberOfOpenings}
+                  onChange={(e) => setNumberOfOpenings(e.target.value)}
+                  className="border rounded px-4 py-2 w-full bg-gray-700 text-white"
+                  required
+                />
+              </div>
               <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded transition-transform transform hover:scale-105">
                 Post Job
               </button>
@@ -176,10 +196,8 @@ const Employer = () => {
             <Link to="/" className="text-gray-100 text-lg font-semibold">Employer Dashboard</Link>
           </div>
           <nav className="flex flex-grow justify-center space-x-4">
-           
             <Link to="/job-alerts" className="text-gray-100">Notifications</Link>
           </nav>
-        
         </div>
       </header>
 
@@ -294,3 +312,4 @@ const Employer = () => {
 };
 
 export default Employer;
+

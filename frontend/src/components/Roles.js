@@ -10,7 +10,6 @@ const Roles = () => {
       className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center"
       style={{
         backgroundImage: `url(${require("./backgroundwebsite.jpg")})`,
-        
       }}
     >
       <h1 className="text-4xl sm:text-5xl font-bold text-white mb-8 text-center transition transform hover:scale-105 duration-300">
@@ -59,6 +58,7 @@ const Roles = () => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };

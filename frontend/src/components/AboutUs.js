@@ -1,4 +1,5 @@
 import React from 'react';
+import "./custom.css";
 const AboutUs = () => {
   return (
     <div className="relative min-h-screen bg-gray-900 text-white">
@@ -6,6 +7,20 @@ const AboutUs = () => {
 
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen p-6">
         <img src = {require('./wave.png')} alt="img" className="h-60 w-60 mb-4" />
+        <h3 className="text-4xl font-bold mb-4 heading-animation">Rate Us</h3>
+        <div class="rating">
+          <input value="5" name="rating" id="star5" type="radio" />
+          <label for="star5"></label>
+          <input value="4" name="rating" id="star4" type="radio" />
+          <label for="star4"></label>
+          <input value="3" name="rating" id="star3" type="radio" />
+          <label for="star3"></label>
+          <input value="2" name="rating" id="star2" type="radio" />
+          <label for="star2"></label>
+          <input value="1" name="rating" id="star1" type="radio" />
+          <label for="star1"></label>
+        </div>
+
         <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl space-y-8 md:space-y-0 md:space-x-8">
           <div className="md:w-1/2 flex flex-col items-center md:items-start space-y-4 p-4 bg-gray-800 rounded-lg shadow-lg">
             <h2 className="text-3xl font-bold">What We Do</h2>

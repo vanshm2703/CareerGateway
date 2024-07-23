@@ -19,7 +19,7 @@ const JobListing = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get('/api/jobs');
+        const response = await axios.get('/jobs');
         setJobs(response.data);
       } catch (error) {
         console.error('Error fetching jobs:', error);
@@ -32,7 +32,7 @@ const JobListing = () => {
   useEffect(() => {
     const fetchAppliedJobs = async () => {
       try {
-        const response = await axios.get('/api/job-applications');
+        const response = await axios.get('/job-applications');
         setAppliedJobs(response.data);
       } catch (error) {
         console.error('Error fetching applied jobs:', error);
@@ -59,7 +59,7 @@ const JobListing = () => {
 
   const handleApplyJob = async (job) => {
     try {
-      const response = await axios.post('/api/job-applications', { jobId: job._id });
+      const response = await axios.post('/job-applications', { jobId: job._id });
       setAppliedJobs((prevAppliedJobs) => [...prevAppliedJobs, response.data]);
       handleCloseModal();
     } catch (error) {
@@ -111,7 +111,20 @@ const JobListing = () => {
               onChange={(e) => setLocation(e.target.value)}
               className="border rounded px-4 py-2 bg-gray-800 text-gray-100"
             />
-            <button className="bg-blue-500 text-white px-4 py-2 rounded">Find Job</button>
+            <button
+              class="flex justify-center items-center gap-2 w-28 h-12 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#14b8a6] via-[#059669] to-[#047857] hover:shadow-xl hover:shadow-green-500 hover:scale-105 duration-300 hover:from-[#047857] hover:to-[#14b8a6]"
+            >
+            
+               
+                  <path
+                    d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                  ></path>
+                
+              <span>search</span>
+            </button>
+
           </div>
         </div>
         <div className="flex flex-col md:flex-row mb-6 space-y-4 md:space-y-0 md:space-x-4">
