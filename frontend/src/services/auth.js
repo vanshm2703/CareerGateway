@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
       if (isAuthenticated) {
         const token = await getAccessTokenSilently();
         localStorage.setItem('authToken', token);
+        console.log('Token set in localStorage:', token);
       } else {
         localStorage.removeItem('authToken');
       }
